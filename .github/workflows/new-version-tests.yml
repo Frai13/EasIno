@@ -1,0 +1,50 @@
+name: New version tests
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on:
+  push:
+    tags: [ '*' ]
+jobs:
+  UnitTests:
+    uses: ./.github/workflows/unit-tests.yml
+  ArduinoLibrarySpecificationCheck:
+    uses: ./.github/workflows/arduino-library-specification.yml
+  CheckoutRepos:
+    runs-on: self-hosted
+    steps:
+      - run: echo "Triggered by a ${{ github.event_name }} event."
+      - run: echo "Running on ${{ runner.os }}"
+      - run: echo "Repository -> ${{ github.repository }}."
+      - name: Check out EasIno code
+        uses: actions/checkout@v4
+        with:
+          path: EasIno
+          clean: false
+      - run: echo "Cloned EasIno."
+      - name: Checkout RobotTests repo
+        uses: actions/checkout@v4
+        with:
+          repository: Frai13/EasInoRobotTests
+          token: ${{ secrets.MY_TOKEN }}
+          path: robot-tests
+          clean: false
+      - run: echo "Cloned RobotTests."
+  CopyEasInoToLibraries:
+    runs-on: self-hosted
+    needs: [ CheckoutRepos ]
+    steps:
+      - run: chmod +x copyToLibraries.sh && ./copyToLibraries.sh
+        working-directory: ./robot-tests
+        shell: bash
+  RunTests:
+    runs-on: self-hosted
+    needs: [ CopyEasInoToLibraries ]
+    steps:
+      - run: robot --outputdir reports --variable PORT:/dev/ttyUSB0 --variable DEVICE:NANO .
+        working-directory: ./robot-tests
+        shell: bash
+      - name: Store test report
+        uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: reports
+          path: robot-tests/reports

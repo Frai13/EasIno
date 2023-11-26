@@ -1,0 +1,24 @@
+ Syntax Coloring Map For EasIno
+
+# Datatypes (KEYWORD1)
+EasIno	KEYWORD1
+SerialCom	KEYWORD1
+DataCom	KEYWORD1
+
+# Methods and Functions (KEYWORD2)
+start	KEYWORD2
+stop	KEYWORD2
+send	KEYWORD2
+receive	KEYWORD2
+builder	KEYWORD2
+setOperation	KEYWORD2
+setArgument	KEYWORD2
+toString	KEYWORD2
+
+# Instances (KEYWORD2)
+operation	KEYWORD2
+args	KEYWORD2
+
+# Constants (LITERAL1)
+ARRAY_LENGTH	LITERAL1
+ARG_LENGTH	LITERAL1

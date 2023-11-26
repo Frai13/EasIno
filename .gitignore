@@ -1,0 +1,6 @@
+.theia
+.vscode
+EasIno.ino
+build/
+tests/build/
+tests/src/

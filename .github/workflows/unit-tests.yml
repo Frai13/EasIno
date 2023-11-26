@@ -1,0 +1,24 @@
+name: Unit Tests
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_call:
+jobs:
+  UnitTests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: libgtest-dev
+      - run: echo "Triggered by a ${{ github.event_name }} event."
+      - run: echo "Running on ${{ runner.os }}"
+      - run: echo "Repository -> ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - run: echo "Cloned."
+      - run: ./tests/run_tests.sh
+        shell: bash
