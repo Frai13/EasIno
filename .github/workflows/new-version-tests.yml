@@ -24,7 +24,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: Frai13/EasInoRobotTests
-          token: ${{ secrets.MY_TOKEN }}
           path: robot-tests
           clean: false
       - run: echo "Cloned RobotTests."
