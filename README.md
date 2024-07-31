@@ -44,6 +44,7 @@ Response example:
 EasIno can not only be used as it is, sending and receiving data using the defined protocol but also APIs can be used, which help the user interact with an EasIno embedded board. The currently **available APIs** are:
 
 + [C# API](https://github.com/Frai13/EasInoCSharpAPI).
++ [Python API](https://github.com/Frai13/easino-py).
 
 ## RobotTests
 Robot tests are performed before launching a new release: [repo](https://github.com/Frai13/EasInoRobotTests).
